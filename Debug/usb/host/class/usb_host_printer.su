@@ -1,0 +1,15 @@
+usb_host_printer.c:172:13:USB_HostPrinterInPipeCallback	40	static
+usb_host_printer.c:199:13:USB_HostPrinterOutPipeCallback	40	static
+usb_host_printer.c:225:13:USB_HostPrinterControlPipeCallback	40	static
+usb_host_printer.c:241:21:USB_HostPrinterOpenInterface	48	static
+usb_host_printer.c:339:13:USB_HostPrinterSetInterfaceCallback	40	static
+usb_host_printer.c:359:14:USB_HostPrinterInit	32	static
+usb_host_printer.c:387:14:USB_HostPrinterSetInterface	48	static
+usb_host_printer.c:482:14:USB_HostPrinterDeinit	24	static
+usb_host_printer.c:559:14:USB_HostPrinterRecv	32	static
+usb_host_printer.c:608:10:USB_HostPrinterGetPacketsize	24	static
+usb_host_printer.c:631:14:USB_HostPrinterSend	32	static
+usb_host_printer.c:680:21:USB_HostPrinterControl	24	static
+usb_host_printer.c:732:14:USB_HostPrinterGetDeviceId	56	static
+usb_host_printer.c:753:14:USB_HostPrinterGetPortStatus	56	static
+usb_host_printer.c:767:14:USB_HostPrinterSoftReset	56	static

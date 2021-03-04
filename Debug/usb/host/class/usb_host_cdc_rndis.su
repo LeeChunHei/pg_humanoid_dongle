@@ -1,0 +1,7 @@
+usb_host_cdc_rndis.c:33:14:USB_HostRndisInitMsg	40	static
+usb_host_cdc_rndis.c:55:14:USB_HostRndisQueryMsg	40	static
+usb_host_cdc_rndis.c:94:14:USB_HostRndisHaltMsg	40	static
+usb_host_cdc_rndis.c:110:14:USB_HostRndisSetMsg	40	static
+usb_host_cdc_rndis.c:148:14:USB_HostRndisResetMsg	40	static
+usb_host_cdc_rndis.c:163:14:USB_HostRndisSendDataMsg	40	static
+usb_host_cdc_rndis.c:203:14:USB_HostRndisRecvDataMsg	32	static

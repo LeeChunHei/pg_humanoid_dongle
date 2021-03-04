@@ -1,0 +1,13 @@
+fsl_lpi2c.h:525:24:LPI2C_MasterGetStatusFlags	16	static
+fsl_lpi2c.h:550:20:LPI2C_MasterClearStatusFlags	16	static
+fsl_lpi2c.h:585:20:LPI2C_MasterDisableInterrupts	16	static
+fsl_lpi2c.h:614:20:LPI2C_MasterEnableDMA	16	static
+fsl_lpi2c.h:625:24:LPI2C_MasterGetTxFifoAddress	16	static
+fsl_lpi2c.h:636:24:LPI2C_MasterGetRxFifoAddress	16	static
+fsl_edma.h:908:24:EDMA_GetNextTCDAddress	16	static
+fsl_lpi2c_edma.c:113:6:LPI2C_MasterCreateEDMAHandle	24	static
+fsl_lpi2c_edma.c:148:17:LPI2C_GenerateCommands	40	static
+fsl_lpi2c_edma.c:217:10:LPI2C_MasterTransferEDMA	88	static
+fsl_lpi2c_edma.c:407:10:LPI2C_MasterTransferGetCountEDMA	40	static
+fsl_lpi2c_edma.c:457:10:LPI2C_MasterTransferAbortEDMA	16	static
+fsl_lpi2c_edma.c:492:13:LPI2C_MasterEDMACallback	40	static

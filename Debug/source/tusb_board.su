@@ -1,0 +1,7 @@
+core_cm7.h:2032:22:__NVIC_SetPriority	16	static
+tusb_board.c:36:6:board_init	16	static
+tusb_board.c:64:6:USB_OTG1_IRQHandler	8	static
+tusb_board.c:79:6:board_led_write	16	static
+tusb_board.c:83:10:board_button_read	4	static
+tusb_board.c:88:5:board_uart_read	16	static
+tusb_board.c:93:5:board_uart_write	16	static

@@ -1,0 +1,13 @@
+fsl_clock.h:1042:20:CLOCK_ControlGate	32	static
+fsl_clock.h:1059:20:CLOCK_EnableClock	16	static
+fsl_clock.h:1069:20:CLOCK_DisableClock	16	static
+fsl_ocotp.h:82:20:OCOTP_CheckBusyStatus	16	static
+fsl_ocotp.h:93:20:OCOTP_CheckErrorStatus	16	static
+fsl_ocotp.h:103:20:OCOTP_ClearErrorStatus	16	static
+fsl_ocotp.c:59:6:OCOTP_ReloadShadowRegister	24	static
+fsl_ocotp.c:92:13:OCOTP_SetReadTiming	24	static
+fsl_ocotp.c:102:13:OCOTP_SetWriteTiming	24	static
+fsl_ocotp.c:114:6:OCOTP_Init	80	static
+fsl_ocotp.c:140:6:OCOTP_Deinit	16	static
+fsl_ocotp.c:156:10:OCOTP_ReadFuseShadowRegister	24	static
+fsl_ocotp.c:209:10:OCOTP_WriteFuseShadowRegister	32	static

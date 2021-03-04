@@ -1,0 +1,15 @@
+usb_host_phdc.c:172:13:USB_HostPhdcControlPipeCallback	40	static
+usb_host_phdc.c:209:13:USB_HostPhdcSetClearFeatureEndpointHaltCallback	48	static
+usb_host_phdc.c:265:13:USB_HostPhdcInterruptPipeCallback	40	static
+usb_host_phdc.c:298:13:USB_HostPhdcBulkInPipeCallback	64	static
+usb_host_phdc.c:405:13:USB_HostPhdcBulkOutPipeCallback	40	static
+usb_host_phdc.c:438:21:USB_HostPhdcOpenInterface	48	static
+usb_host_phdc.c:583:13:USB_HostPhdcSetInterfaceCallback	40	static
+usb_host_phdc.c:622:14:USB_HostPhdcSetInterface	48	static
+usb_host_phdc.c:736:14:USB_HostPhdcInit	32	static
+usb_host_phdc.c:770:14:USB_HostPhdcDeinit	24	static
+usb_host_phdc.c:884:14:USB_HostPhdcRecv	48	static
+usb_host_phdc.c:981:14:USB_HostPhdcSend	48	static
+usb_host_phdc.c:1104:14:USB_HostPhdcSendControlRequest	40	static
+usb_host_phdc.c:1194:14:USB_HostPhdcSetClearFeatureEndpointHalt	32	static
+usb_host_phdc.c:1255:16:USB_HostPhdcGetEndpointInformation	24	static

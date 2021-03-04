@@ -1,0 +1,10 @@
+core_cm7.h:1902:22:__NVIC_EnableIRQ	16	static
+fsl_clock.h:1042:20:CLOCK_ControlGate	32	static
+fsl_clock.h:1059:20:CLOCK_EnableClock	16	static
+fsl_clock.h:1069:20:CLOCK_DisableClock	16	static
+fsl_common.h:484:28:EnableIRQ	16	static
+fsl_kpp.c:41:17:KPP_GetInstance	24	static
+fsl_kpp.c:58:13:KPP_Mdelay	24	static
+fsl_kpp.c:74:6:KPP_Init	24	static
+fsl_kpp.c:113:6:KPP_Deinit	16	static
+fsl_kpp.c:138:6:KPP_keyPressScanning	56	static

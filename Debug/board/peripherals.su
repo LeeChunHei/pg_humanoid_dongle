@@ -1,0 +1,4 @@
+core_cm7.h:2032:22:__NVIC_SetPriority	16	static
+peripherals.c:104:13:LPUART3_init	8	static
+peripherals.c:116:6:BOARD_InitPeripherals	8	static
+peripherals.c:125:6:BOARD_InitBootPeripherals	8	static

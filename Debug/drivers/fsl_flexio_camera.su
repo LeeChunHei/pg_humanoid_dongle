@@ -1,0 +1,16 @@
+fsl_clock.h:1042:20:CLOCK_ControlGate	32	static
+fsl_clock.h:1059:20:CLOCK_EnableClock	16	static
+fsl_flexio.h:486:20:FLEXIO_EnableShifterStatusInterrupts	16	static
+fsl_flexio.h:499:20:FLEXIO_DisableShifterStatusInterrupts	16	static
+fsl_flexio.h:569:24:FLEXIO_GetShifterStatusFlags	16	static
+fsl_flexio.h:582:20:FLEXIO_ClearShifterStatusFlags	16	static
+fsl_flexio.h:606:20:FLEXIO_ClearShifterErrorFlags	16	static
+fsl_flexio.h:630:20:FLEXIO_ClearTimerStatusFlags	16	static
+fsl_flexio_camera.c:28:17:FLEXIO_CAMERA_GetInstance	16	static
+fsl_flexio_camera.c:43:6:FLEXIO_CAMERA_GetDefaultConfig	16	static
+fsl_flexio_camera.c:62:6:FLEXIO_CAMERA_Init	80	static
+fsl_flexio_camera.c:144:6:FLEXIO_CAMERA_Deinit	16	static
+fsl_flexio_camera.c:165:10:FLEXIO_CAMERA_GetStatusFlags	24	static
+fsl_flexio_camera.c:182:6:FLEXIO_CAMERA_ClearStatusFlags	16	static
+fsl_flexio_camera.c:201:6:FLEXIO_CAMERA_EnableInterrupt	16	static
+fsl_flexio_camera.c:212:6:FLEXIO_CAMERA_DisableInterrupt	16	static
