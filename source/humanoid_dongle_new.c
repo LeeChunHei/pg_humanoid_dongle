@@ -65,12 +65,35 @@ static uint8_t usb_uart_itf = 0;
 #define UART_RX_EVENT			0b1000
 #define UART_EVENT				UART_USB_RX_EVENT|UART_USB_TX_EVENT|UART_TX_EVENT|UART_RX_EVENT
 static BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-static uint32_t uart3_recevied_data;
 
 static lpuart_handle_t uart3_handle;
 static lpuart_transfer_t uart3_xfer;
 static uint8_t uart3_send_buff[CFG_TUD_CDC_EP_BUFSIZE];
-static uint8_t uart3_recv_buff[CFG_TUD_CDC_EP_BUFSIZE];
+#define RECV_BUF_NUM	(10)
+static uint8_t uart3_recv_buff[RECV_BUF_NUM][CFG_TUD_CDC_EP_BUFSIZE];
+static uint32_t uart3_recevied_data[RECV_BUF_NUM];
+static size_t uart3_recv_write_index;
+static size_t uart3_recv_read_index;
+
+void recv_buf_push()
+{
+	++uart3_recv_write_index;
+	uart3_recv_write_index = (uart3_recv_write_index) % RECV_BUF_NUM;
+}
+
+uint8_t recv_buf_pop(size_t *idx)
+{
+	if (uart3_recv_read_index == uart3_recv_write_index)
+	{
+		return 0;
+	}
+	else
+	{
+		*idx = uart3_recv_read_index++;
+		uart3_recv_read_index = uart3_recv_read_index % RECV_BUF_NUM;
+		return 1;
+	}
+}
 
 void uart3_transfer_callback(LPUART_Type *base, lpuart_handle_t *handle, status_t status, void *user_data)
 {
@@ -81,11 +104,16 @@ void uart3_transfer_callback(LPUART_Type *base, lpuart_handle_t *handle, status_
     }
     else if(kStatus_LPUART_RxIdle == status || kStatus_LPUART_IdleLineDetected == status)
     {
+    	uart3_recevied_data[uart3_recv_write_index] = CFG_TUD_CDC_EP_BUFSIZE;
     	if(kStatus_LPUART_IdleLineDetected == status)
     	{
-    		uart3_recevied_data = CFG_TUD_CDC_EP_BUFSIZE - uart3_handle.rxDataSize;
+    		uart3_recevied_data[uart3_recv_write_index] -= uart3_handle.rxDataSize;
 			LPUART_TransferAbortReceive(base, &uart3_handle);
     	}
+    	recv_buf_push();
+		uart3_xfer.data     = uart3_recv_buff[uart3_recv_write_index];
+		uart3_xfer.dataSize = CFG_TUD_CDC_EP_BUFSIZE;
+		LPUART_TransferReceiveNonBlocking(LPUART3, &uart3_handle, &uart3_xfer, NULL);
     	xTaskNotifyFromISR(usb_dynamixel_taskdef, UART_RX_EVENT, eSetBits, &xHigherPriorityTaskWoken);
     }
 }
@@ -137,14 +165,16 @@ void tud_cdc_line_coding_cb(uint8_t itf, cdc_line_coding_t const* p_line_coding)
 	LPUART_Deinit(LPUART3);
 	LPUART_Init(LPUART3, &config, LPUART3_CLOCK_SOURCE);
 	LPUART3->MODIR |= (LPUART_MODIR_TXRTSE_MASK | LPUART_MODIR_TXRTSPOL_MASK);
+	uart3_recv_write_index = 0;
+	uart3_recv_read_index = 0;
 	lpuart_transfer_t xfer =
 	{
-			.data = uart3_recv_buff,
+			.data = uart3_recv_buff[uart3_recv_write_index],
 			.dataSize = CFG_TUD_CDC_EP_BUFSIZE,
 	};
 	LPUART_TransferCreateHandle(LPUART3, &uart3_handle, uart3_transfer_callback, NULL);
 	LPUART_TransferReceiveNonBlocking(LPUART3, &uart3_handle, &xfer, NULL);
-//	printf("baud:%d\r\n", config.baudRate_Bps);
+	printf("baud:%d\r\n", config.baudRate_Bps);
 }
 
 void tud_cdc_line_state_cb(uint8_t itf, bool dtr, bool rts)
@@ -170,18 +200,36 @@ void usb_dynamixel_task(void *param) {
 				uint32_t usb_recv_size = tud_cdc_n_read(usb_uart_itf, uart3_send_buff, CFG_TUD_CDC_EP_BUFSIZE);
 				uart3_xfer.data     = uart3_send_buff;
 				uart3_xfer.dataSize = usb_recv_size;
+//				printf("t");
+//				for (int i = 0; i < usb_recv_size; ++i)
+//				{
+//					printf(".%x", uart3_send_buff[i]);
+//				}
+//				printf("\r\n");
 				LPUART_TransferSendNonBlocking(LPUART3, &uart3_handle, &uart3_xfer);
+
 			}
 			if(flags & UART_USB_TX_EVENT)
 			{
-				uart3_xfer.data     = uart3_recv_buff;
-				uart3_xfer.dataSize = CFG_TUD_CDC_EP_BUFSIZE;
-				LPUART_TransferReceiveNonBlocking(LPUART3, &uart3_handle, &uart3_xfer, NULL);
+//				uart3_xfer.data     = uart3_recv_buff[uart3_recv_write_index];
+//				uart3_xfer.dataSize = CFG_TUD_CDC_EP_BUFSIZE;
+//				LPUART_TransferReceiveNonBlocking(LPUART3, &uart3_handle, &uart3_xfer, NULL);
 				tud_cdc_n_write_flush(usb_uart_itf);
 			}
 			if(flags & UART_RX_EVENT)
 			{
-				tud_cdc_n_write(usb_uart_itf, uart3_recv_buff, uart3_recevied_data);
+//				printf("r");
+//				for (int i = 0; i < uart3_recevied_data; ++i)
+//				{
+//					printf(".%x", uart3_recv_buff[i]);
+//				}
+//				printf("\r\n");
+//				printf("rn%d\r\n",uart3_recevied_data);
+				size_t idx;
+				while (recv_buf_pop(&idx))
+				{
+					tud_cdc_n_write(usb_uart_itf, uart3_recv_buff[idx], uart3_recevied_data[idx]);
+				}
 				tud_cdc_n_write_flush(usb_uart_itf);
 			}
 			if(flags & UART_TX_EVENT)
